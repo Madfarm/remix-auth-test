@@ -1,58 +1,190 @@
-import type { Config } from "tailwindcss";
+function lightDarkVar(baseName: any) {
+	return `var(--theme-light, hsl(var(--${baseName}))) var(--theme-dark, hsl(var(--${baseName}-dark)))`;
+}
 
-export default {
-    darkMode: ["class"],
-    content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
-  theme: {
-  	extend: {
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		},
-  		colors: {
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
-  			card: {
-  				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
-  			},
-  			popover: {
-  				DEFAULT: 'hsl(var(--popover))',
-  				foreground: 'hsl(var(--popover-foreground))'
-  			},
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
-  			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
-  			},
-  			muted: {
-  				DEFAULT: 'hsl(var(--muted))',
-  				foreground: 'hsl(var(--muted-foreground))'
-  			},
-  			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
-  			},
-  			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))',
-  				foreground: 'hsl(var(--destructive-foreground))'
-  			},
-  			border: 'hsl(var(--border))',
-  			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
-  			chart: {
-  				'1': 'hsl(var(--chart-1))',
-  				'2': 'hsl(var(--chart-2))',
-  				'3': 'hsl(var(--chart-3))',
-  				'4': 'hsl(var(--chart-4))',
-  				'5': 'hsl(var(--chart-5))'
-  			}
-  		}
-  	}
-  },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+	darkMode: ["class"],
+	content: [
+		"./pages/**/*.{ts,tsx}",
+		"./components/**/*.{ts,tsx}",
+		"./app/**/*.{ts,tsx}",
+		"./src/**/*.{ts,tsx}",
+	],
+	prefix: "",
+	theme: {
+		container: {
+			center: true,
+			padding: "2rem",
+			screens: {
+				"2xl": "1400px",
+			},
+		},
+		extend: {
+			colors: {
+				border: lightDarkVar("border"),
+				input: lightDarkVar("input"),
+				ring: lightDarkVar("ring"),
+				background: lightDarkVar("background"),
+				foreground: lightDarkVar("foreground"),
+				primary: {
+					DEFAULT: lightDarkVar("primary"),
+					foreground: lightDarkVar("primary-foreground"),
+				},
+				secondary: {
+					DEFAULT: lightDarkVar("secondary"),
+					foreground: lightDarkVar("secondary-foreground"),
+				},
+				destructive: {
+					DEFAULT: lightDarkVar("destructive"),
+					foreground: lightDarkVar("destructive-foreground"),
+				},
+				muted: {
+					DEFAULT: lightDarkVar("muted"),
+					foreground: lightDarkVar("muted-foreground"),
+				},
+				accent: {
+					DEFAULT: lightDarkVar("accent"),
+					foreground: lightDarkVar("accent-foreground"),
+				},
+				popover: {
+					DEFAULT: lightDarkVar("popover"),
+					foreground: lightDarkVar("popover-foreground"),
+				},
+				card: {
+					DEFAULT: lightDarkVar("card"),
+					foreground: lightDarkVar("card-foreground"),
+				},
+			},
+			borderRadius: {
+				lg: "var(--radius)",
+				md: "calc(var(--radius) - 2px)",
+				sm: "calc(var(--radius) - 4px)",
+			},
+			keyframes: {
+				"accordion-down": {
+					from: { height: "0" },
+					to: { height: "var(--radix-accordion-content-height)" },
+				},
+				"accordion-up": {
+					from: { height: "var(--radix-accordion-content-height)" },
+					to: { height: "0" },
+				},
+				progress: {
+					"0%": { transform: " translateX(0) scaleX(0)" },
+					"40%": { transform: "translateX(0) scaleX(0.4)" },
+					"100%": { transform: "translateX(100%) scaleX(0.5)" },
+				},
+			},
+			animation: {
+				"accordion-down": "accordion-down 0.2s ease-out",
+				"accordion-up": "accordion-up 0.2s ease-out",
+				progress: "progress 1s infinite linear",
+			},
+			transformOrigin: {
+				"left-right": "0% 50%",
+			},
+			typography: () => ({
+				DEFAULT: {
+					css: {
+						color: lightDarkVar("foreground"),
+						'[class~="lead"]': {
+							color: lightDarkVar("foreground"),
+						},
+						a: {
+							color: lightDarkVar("primary"),
+						},
+						strong: {
+							color: lightDarkVar("foreground"),
+						},
+						"a strong": {
+							color: lightDarkVar("primary"),
+						},
+						"blockquote strong": {
+							color: lightDarkVar("foreground"),
+						},
+						"thead th strong": {
+							color: lightDarkVar("foreground"),
+						},
+						"ol > li::marker": {
+							color: lightDarkVar("foreground"),
+						},
+						"ul > li::marker": {
+							color: lightDarkVar("foreground"),
+						},
+						dt: {
+							color: lightDarkVar("foreground"),
+						},
+						blockquote: {
+							color: lightDarkVar("foreground"),
+						},
+						h1: {
+							color: lightDarkVar("foreground"),
+						},
+						"h1 strong": {
+							color: lightDarkVar("foreground"),
+						},
+						h2: {
+							color: lightDarkVar("foreground"),
+						},
+						"h2 strong": {
+							color: lightDarkVar("foreground"),
+						},
+						h3: {
+							color: lightDarkVar("foreground"),
+						},
+						"h3 strong": {
+							color: lightDarkVar("foreground"),
+						},
+						h4: {
+							color: lightDarkVar("foreground"),
+						},
+						"h4 strong": {
+							color: lightDarkVar("foreground"),
+						},
+						kbd: {
+							color: lightDarkVar("foreground"),
+						},
+						code: {
+							color: lightDarkVar("foreground"),
+						},
+						"a code": {
+							color: lightDarkVar("primary"),
+						},
+						"h1 code": {
+							color: lightDarkVar("foreground"),
+						},
+						"h2 code": {
+							color: lightDarkVar("foreground"),
+						},
+						"h3 code": {
+							color: lightDarkVar("foreground"),
+						},
+						"h4 code": {
+							color: lightDarkVar("foreground"),
+						},
+						"blockquote code": {
+							color: lightDarkVar("foreground"),
+						},
+						"thead th code": {
+							color: lightDarkVar("foreground"),
+						},
+						pre: {
+							color: lightDarkVar("foreground"),
+						},
+						"pre code": {
+							color: lightDarkVar("foreground"),
+						},
+						"thead th": {
+							color: lightDarkVar("foreground"),
+						},
+						figcaption: {
+							color: lightDarkVar("foreground"),
+						},
+					},
+				},
+			}),
+		},
+	},
+	plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+};

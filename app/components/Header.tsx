@@ -31,7 +31,7 @@ export function Header() {
 			<div className="flex items-center space-x-4">
 				<Link className="flex items-center space-x-2" to="/">
 					{/* <HomeIcon className="h-6 w-6" /> */}
-					<span className="text-lg font-bold">shadcn</span>
+					<span className="text-lg font-bold">OrdersPortal</span>
 				</Link>
 			</div>
 			<DropdownMenu>
