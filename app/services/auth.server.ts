@@ -21,9 +21,9 @@ authenticator.use(
       let user = null;
   
       // do some validation, errors are in the sessionErrorKey
-      if (!userName || userName?.length === 0) throw new AuthorizationError('Bad Credentials: Email is required')
+      if (!userName || userName?.length === 0) throw new AuthorizationError('Bad Credentials: Username is required')
       if (typeof userName !== 'string')
-        throw new AuthorizationError('Bad Credentials: Email must be a string')
+        throw new AuthorizationError('Bad Credentials: Username must be a string')
   
       if (!password || password?.length === 0) throw new AuthorizationError('Bad Credentials: Password is required')
       if (typeof password !== 'string')
