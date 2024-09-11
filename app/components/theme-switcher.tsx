@@ -1,11 +1,5 @@
 export type Theme = "light" | "dark" | "system";
 
-/**
- * This component is used to set the theme based on the value at hydration time.
- * If no value is found, it will default to the user's system preference and
- * coordinates with the ThemeSwitcherScript to prevent a flash of unstyled content
- * and a React hydration mismatch.
- */
 export function ThemeSwitcherSafeHTML({
 	children,
 	lang,
@@ -23,14 +17,7 @@ export function ThemeSwitcherSafeHTML({
 	);
 }
 
-/**
- * This script will run on the client to set the theme based on the value in
- * localStorage. If no value is found, it will default to the user's system
- * preference.
- *
- * IMPORTANT: This script should be placed at the end of the <head> tag to
- * prevent a flash of unstyled content.
- */
+
 export function ThemeSwitcherScript() {
 	return (
 		<script
@@ -55,10 +42,7 @@ export function getTheme() {
 	);
 }
 
-/**
- * This function will toggle the theme between light and dark and store the
- * value in localStorage.
- */
+
 export function toggleTheme() {
 	let currentTheme = validateTheme(localStorage.getItem("theme"));
 	if (currentTheme === "system") {

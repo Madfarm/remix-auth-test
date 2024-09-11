@@ -34,6 +34,12 @@ export function Header() {
 					<span className="text-lg font-bold">OrdersPortal</span>
 				</Link>
 			</div>
+
+			<div className="flex items-center space-x-4">
+				<Link to="/register">Register</Link>
+				<Link to="/login">Login</Link>
+			</div>
+			
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button

@@ -14,15 +14,15 @@ authenticator.use(
     new FormStrategy(async ({ form }) => {
   
       // get the data from the form...
-      let email = form.get('email') as string;
+      let userName = form.get('userName') as string;
       let password = form.get('password') as string;
   
       // initialize the user here
       let user = null;
   
       // do some validation, errors are in the sessionErrorKey
-      if (!email || email?.length === 0) throw new AuthorizationError('Bad Credentials: Email is required')
-      if (typeof email !== 'string')
+      if (!userName || userName?.length === 0) throw new AuthorizationError('Bad Credentials: Email is required')
+      if (typeof userName !== 'string')
         throw new AuthorizationError('Bad Credentials: Email must be a string')
   
       if (!password || password?.length === 0) throw new AuthorizationError('Bad Credentials: Password is required')
@@ -30,9 +30,9 @@ authenticator.use(
         throw new AuthorizationError('Bad Credentials: Password must be a string')
   
       // login the user, this could be whatever process you want
-      if (email === 'aaron@mail.com' && password === 'password') {
+      if (true) {
         user = {
-          name: email,
+          name: userName,
           token: `${password}-${new Date().getTime()}`,
         };
   
