@@ -11,8 +11,6 @@ import {
 export const action = async ({
     request
 }: ActionFunctionArgs) => {
-    const formData = await request.formData();
-    const data = Object.fromEntries(formData);
     return await authenticator.authenticate("form",  request, {
         successRedirect: "/",
         failureRedirect: "/login"

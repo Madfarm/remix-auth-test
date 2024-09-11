@@ -12,7 +12,9 @@ export async function findOrCreateUser(data: any) {
         return user;
     } else {
         user = await prisma.user.create({
-            ...data
+            data: {
+                ...data
+            }
         });
 
         return user;
