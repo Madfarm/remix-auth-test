@@ -36,8 +36,8 @@ export function Header() {
 			</div>
 
 			<div className="flex items-center space-x-4">
-				<Link to="/register">Register</Link>
-				<Link to="/login">Login</Link>
+				<Link to="/auth/register">Register</Link>
+				<Link to="/auth/login">Login</Link>
 			</div>
 			
 			<DropdownMenu>
