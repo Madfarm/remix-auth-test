@@ -1,6 +1,6 @@
 import { prisma } from "~/db.server";
 
-export async function findOrCreateUser(data: any) {
+export async function RegisterUser(data: any) {
     let user = await prisma.user.findFirst({
         where: {
             userName: data.userName,
@@ -19,4 +19,15 @@ export async function findOrCreateUser(data: any) {
 
         return user;
     }
+}
+
+export async function Login(data: any) {
+    let user = await prisma.user.findFirst({
+        where: {
+            userName: data.userName,
+            password: data.password
+        }
+    })
+
+    return user;
 }

@@ -8,21 +8,23 @@ import type { ActionFunctionArgs } from "@remix-run/node"
 import { 
     Form,
 } from "@remix-run/react"
+import { RegisterUser } from "~/services/db.server"
 
 export const action = async ({
     request
 }: ActionFunctionArgs) => {
-    try {
-        return await authenticator.authenticate("form",  request, {
-            successRedirect: "/",
-            throwOnError: true
-        })
-    } catch(error){
-        if (error instanceof Response) return error;
-        if (error instanceof AuthorizationError) {
-            return error;
-        }
-    }
+    const clonedReq = request.clone()
+
+    const form = await request.formData();
+    const username = form.get('userName') as string;
+    const password = form.get('password') as string;
+
+    await RegisterUser({ userName: username, password: password});
+
+    return await authenticator.authenticate("form",  clonedReq, {
+        successRedirect: "/",
+        failureRedirect: "/auth/login",
+    })
 }
 
 

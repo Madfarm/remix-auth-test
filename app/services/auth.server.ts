@@ -1,7 +1,7 @@
 import { Authenticator, AuthorizationError } from "remix-auth";
 import { FormStrategy } from 'remix-auth-form';
 import { sessionStorage, AuthUser } from "~/services/session.server";
-import { findOrCreateUser } from "./db.service";
+import { Login } from "./db.server";
 
 
 
@@ -33,12 +33,12 @@ authenticator.use(
         throw new AuthorizationError('Bad Credentials: Password must be a string')
   
       
-      user = findOrCreateUser({
+      user = await Login({
         userName: userName, password: password
       })
 
       // login the user, this could be whatever process you want
-      if (user) {
+      if (user != null) {
         user = {
           name: userName,
           token: `${password}-${new Date().getTime()}`,
