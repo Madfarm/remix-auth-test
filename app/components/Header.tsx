@@ -1,6 +1,7 @@
 import { LaptopIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { Link } from "@remix-run/react";
+import { Link, useMatches } from "@remix-run/react";
 import * as React from "react";
+import { useMemo } from "react";
 import { useHydrated } from "remix-utils/use-hydrated";
 
 import {
@@ -16,6 +17,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useOptionalUser } from "~/lib/utils";
 
 export function Header() {
 	const hydrated = useHydrated();
@@ -25,6 +27,9 @@ export function Header() {
 		rerender({});
 	}, []);
 	const theme = getTheme();
+	const user = useOptionalUser();
+	
+
 
 	return (
 		<header className="flex items-center justify-between px-4 py-2 md:py-4">
@@ -34,11 +39,18 @@ export function Header() {
 					<span className="text-lg font-bold">OrdersPortal</span>
 				</Link>
 			</div>
-
-			<div className="flex items-center space-x-4">
-				<Link to="/auth/register">Register</Link>
-				<Link to="/auth/login">Login</Link>
-			</div>
+			
+			{user ?
+				<div className="flex items-center space-x-4">
+					<Link to="/auth/register">Register</Link>
+					<Link to="/auth/login">Login</Link>
+				</div>
+			
+			: 
+				<div className="flex items-center space-x-4">
+					<Link to="/logout">Logout</Link>
+				</div>
+			}
 			
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>

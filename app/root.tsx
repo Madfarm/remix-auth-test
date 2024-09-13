@@ -1,3 +1,5 @@
+import authenticator from "./services/auth.server";
+
 import {
 	Links,
 	Meta,
@@ -6,8 +8,9 @@ import {
 	ScrollRestoration,
 	isRouteErrorResponse,
 	useRouteError,
+	useLoaderData
 } from "@remix-run/react";
-
+import { json } from "@remix-run/node";
 
 import { Header } from "./components/Header";
 import {
@@ -16,8 +19,19 @@ import {
 } from "./components/theme-switcher";
 
 import "./globals.css";
+import { LoaderFunctionArgs } from "@remix-run/node";
+
+
+export const loader = async ({
+	request,
+}: LoaderFunctionArgs) => {
+	return json({ user: await authenticator.isAuthenticated(request) });
+	  
+}
 
 function App({ children }: { children: React.ReactNode }) {
+	
+
 	return (
 		<ThemeSwitcherSafeHTML lang="en">
 			<head>
