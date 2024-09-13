@@ -40,7 +40,7 @@ export function Header() {
 				</Link>
 			</div>
 			
-			{user ?
+			{!user ?
 				<div className="flex items-center space-x-4">
 					<Link to="/auth/register">Register</Link>
 					<Link to="/auth/login">Login</Link>
