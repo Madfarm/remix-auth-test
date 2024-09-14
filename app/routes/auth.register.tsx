@@ -22,7 +22,7 @@ export const action = async ({
     await RegisterUser({ userName: username, password: password});
 
     return await authenticator.authenticate("form",  clonedReq, {
-        successRedirect: "/",
+        successRedirect: "/dashboard",
         failureRedirect: "/auth/login",
     })
 }

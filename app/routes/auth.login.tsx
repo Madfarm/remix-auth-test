@@ -15,7 +15,7 @@ export const action = async ({
 }: ActionFunctionArgs) => {
     try {
         return await authenticator.authenticate("form",  request, {
-            successRedirect: "/",
+            successRedirect: "/dashboard",
             throwOnError: true
         })
     } catch(error){
