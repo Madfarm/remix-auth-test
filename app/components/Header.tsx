@@ -49,6 +49,7 @@ export function Header() {
 			: 
 				<div className="flex items-center space-x-4">
 					<Link to="/logout">Logout</Link>
+					<Link to="/dashboard">Dashboard</Link>
 				</div>
 			}
 			
