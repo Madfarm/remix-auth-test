@@ -33,7 +33,7 @@ export default function Dashboard() {
 
     return (
         <main className="w-screen h-screen">
-            <div className="flex flex-col w-64 h-screen border-r-2 bg-secondary">
+            <div className="flex flex-col w-64 h-screen border-r-2 bg-secondary opacity-90">
                 <h1 className="text-center py-2 border-b-2">Orders</h1>
                 <div>
 
@@ -62,7 +62,7 @@ export default function Dashboard() {
                         ))}
                     </ul>)
                     :
-                    (<p>No orders yet</p>) 
+                    (<p className="text-center">No orders yet</p>) 
                     }
                 </nav>
             </div>
