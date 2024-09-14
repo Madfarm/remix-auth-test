@@ -2,7 +2,7 @@ import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
 import authenticator from "~/services/auth.server"
 import { AuthorizationError } from "remix-auth"
-import { useLocation } from "@remix-run/react"
+
 
 
 import type { ActionFunctionArgs } from "@remix-run/node"
@@ -15,7 +15,7 @@ export const action = async ({
 }: ActionFunctionArgs) => {
     try {
         return await authenticator.authenticate("form",  request, {
-            successRedirect: "/",
+            successRedirect: "/dashboard",
             throwOnError: true
         })
     } catch(error){

@@ -1,7 +1,7 @@
 import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
 import authenticator from "~/services/auth.server"
-import { AuthorizationError } from "remix-auth"
+
 
 
 import type { ActionFunctionArgs } from "@remix-run/node"
@@ -22,7 +22,7 @@ export const action = async ({
     await RegisterUser({ userName: username, password: password});
 
     return await authenticator.authenticate("form",  clonedReq, {
-        successRedirect: "/",
+        successRedirect: "/dashboard",
         failureRedirect: "/auth/login",
     })
 }

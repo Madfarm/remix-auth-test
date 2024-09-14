@@ -32,7 +32,7 @@ export function Header() {
 
 
 	return (
-		<header className="flex items-center justify-between px-4 py-2 md:py-4">
+		<header className="flex h-14 items-center justify-between px-4 py-2 md:py-4">
 			<div className="flex items-center space-x-4">
 				<Link className="flex items-center space-x-2" to="/">
 					{/* <HomeIcon className="h-6 w-6" /> */}
@@ -49,6 +49,7 @@ export function Header() {
 			: 
 				<div className="flex items-center space-x-4">
 					<Link to="/logout">Logout</Link>
+					<Link to="/dashboard">Dashboard</Link>
 				</div>
 			}
 			

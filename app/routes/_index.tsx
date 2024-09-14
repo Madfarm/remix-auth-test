@@ -10,8 +10,8 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div>
+    <main>
       <h1>Hello, homepage</h1>
-    </div>
+    </main>
   );
 }
