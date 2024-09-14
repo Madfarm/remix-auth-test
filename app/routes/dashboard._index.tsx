@@ -48,7 +48,7 @@ export default function Dashboard() {
                     {/* Empty div */}
                 </div>
 
-                <nav className="py-2 flex-grow overflow-auto">
+                <nav className="py-2 flex-grow overflow-auto scrollbar-thin">
                     {orders.length ? (
                         <ul>
                             {orders.map((order, i) => (
