@@ -41,7 +41,7 @@ function App({ children }: { children: React.ReactNode }) {
 				<Links />
 				<ThemeSwitcherScript />
 			</head>
-			<body>
+			<body className="overflow-hidden">
 				<Header />
 				{children}
 				<ScrollRestoration />
