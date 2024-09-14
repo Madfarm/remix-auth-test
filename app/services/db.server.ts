@@ -1,5 +1,18 @@
 import { prisma } from "~/db.server";
 
+
+export interface OrderType {
+    id: number;
+    orderNumber: number;
+    customerName: string;
+    contact: string;
+    status: string;
+    orderTotal: number;
+    userId: number;
+}
+
+
+
 export async function RegisterUser(data: any) {
     let user = await prisma.user.findFirst({
         where: {
@@ -28,6 +41,23 @@ export async function Login(data: any) {
             password: data.password
         }
     })
+
+    return user;
+}
+
+export async function getUserByName(name: string) {
+    let user = await prisma.user.findFirst({
+        where: {
+            userName: name
+        },
+        include: {
+            orders: true
+        }
+    })
+
+    if(!user) {
+        throw new Error("User not found");
+    }
 
     return user;
 }
