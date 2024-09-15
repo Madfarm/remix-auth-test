@@ -5,7 +5,8 @@ import {
     redirect,
     useLoaderData,
     Link,
-    Form
+    Form,
+    useSubmit
 } from "@remix-run/react";
 import { LoaderFunctionArgs } from "react-router";
 import authenticator from "~/services/auth.server";
@@ -31,6 +32,9 @@ export const loader = async ({
         return json({});
     }
 
+    const url = new URL(request.url);
+    const query = url.searchParams.get("query");
+
     let orders = (await getUserByName(user.name)).orders;
 
 
@@ -40,6 +44,7 @@ export const loader = async ({
 
 export default function Dashboard() {
     const { orders } = useLoaderData<LoaderData>();
+    const submit = useSubmit();
 
     return (
         <main className="w-screen h-[calc(100vh-3.5rem)] flex"> 
@@ -47,10 +52,16 @@ export default function Dashboard() {
                 <h1 className="text-center py-2 border-b-2 border-foreground">Orders</h1>
 
                 <div>
-                    <Form className="min-h-10 pt-4 px-2">
+                    <Form 
+                        className="min-h-10 pt-4 px-2"
+                        onChange={((e) => {
+                            submit(e.currentTarget)
+                        })}
+                    >
                         <div>
                             <Input
-                                className="bg-[center_left_0.5rem] bg-no-repeat border border-foreground w-full pl-8 bg-[url('/root/code-sandbox/Remix/remix-auth-test/public/magnifying-glass.svg')]"
+                                className="opacity-90 bg-[center_left_0.5rem] bg-no-repeat border border-foreground w-full pl-8 bg-[url('/root/code-sandbox/Remix/remix-auth-test/public/magnifying-glass.svg')]"
+                                placeholder="Search"
                             />
                         </div>
                     </Form>
