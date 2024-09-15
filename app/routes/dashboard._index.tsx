@@ -4,13 +4,15 @@ import {
     Outlet,
     redirect,
     useLoaderData,
-    Link
+    Link,
+    Form
 } from "@remix-run/react";
 import { LoaderFunctionArgs } from "react-router";
 import authenticator from "~/services/auth.server";
 import { getUserByName, OrderType } from "~/services/db.server";
 import { AuthUser } from "~/services/session.server";
 import { ExitIcon } from "@radix-ui/react-icons";
+import { Input } from "~/components/ui/input";
 
 type LoaderData = {
     orders: OrderType[]
@@ -45,7 +47,13 @@ export default function Dashboard() {
                 <h1 className="text-center py-2 border-b-2 border-foreground">Orders</h1>
 
                 <div>
-                    {/* Empty div */}
+                    <Form className="min-h-10 pt-4 px-2">
+                        <div>
+                            <Input
+                                className="bg-[center_left_0.5rem] bg-no-repeat border border-foreground w-full pl-8 bg-[url('/root/code-sandbox/Remix/remix-auth-test/public/magnifying-glass.svg')]"
+                            />
+                        </div>
+                    </Form>
                 </div>
 
                 <nav className="py-2 flex-grow overflow-auto scrollbar-thin">
