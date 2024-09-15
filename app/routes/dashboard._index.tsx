@@ -10,13 +10,14 @@ import {
 } from "@remix-run/react";
 import { LoaderFunctionArgs } from "react-router";
 import authenticator from "~/services/auth.server";
-import { getUserByName, OrderType } from "~/services/db.server";
+import { getOrders, getUserByName, OrderType } from "~/services/db.server";
 import { AuthUser } from "~/services/session.server";
 import { ExitIcon } from "@radix-ui/react-icons";
 import { Input } from "~/components/ui/input";
 
 type LoaderData = {
-    orders: OrderType[]
+    orders: OrderType[],
+    query: string | null
 }
 
 
@@ -35,23 +36,23 @@ export const loader = async ({
     const url = new URL(request.url);
     const query = url.searchParams.get("query");
 
-    let orders = (await getUserByName(user.name)).orders;
+    const orders = await getOrders(user.name, query);
 
-
-    return json<LoaderData>({ orders });
+    return json({ orders, query })
 }
 
 
 export default function Dashboard() {
-    const { orders } = useLoaderData<LoaderData>();
+    const { orders, query } = useLoaderData<LoaderData>();
     const submit = useSubmit();
+
 
     return (
         <main className="w-screen h-[calc(100vh-3.5rem)] flex"> 
             <div className="flex flex-col w-64 h-full border-r-2 bg-secondary opacity-90">
                 <h1 className="text-center py-2 border-b-2 border-foreground">Orders</h1>
 
-                <div>
+                <div className="pb-1">
                     <Form 
                         className="min-h-10 pt-4 px-2"
                         onChange={((e) => {
@@ -60,8 +61,13 @@ export default function Dashboard() {
                     >
                         <div>
                             <Input
+                                id="query"
+                                aira-label="Search orders"
                                 className="opacity-90 bg-[center_left_0.5rem] bg-no-repeat border border-foreground w-full pl-8 bg-[url('/root/code-sandbox/Remix/remix-auth-test/public/magnifying-glass.svg')]"
                                 placeholder="Search"
+                                name="query"
+                                type="search"
+                                defaultValue={query || ""}
                             />
                         </div>
                     </Form>
