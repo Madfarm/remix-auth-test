@@ -10,10 +10,12 @@ import {
 } from "@remix-run/react";
 import { LoaderFunctionArgs } from "react-router";
 import authenticator from "~/services/auth.server";
-import { getOrders, getUserByName, OrderType } from "~/services/db.server";
+import { getOrders, OrderType } from "~/services/db.server";
 import { AuthUser } from "~/services/session.server";
 import { ExitIcon } from "@radix-ui/react-icons";
 import { Input } from "~/components/ui/input";
+import OrderFilter from "~/components/OrderFilter"
+
 
 type LoaderData = {
     orders: OrderType[],
@@ -38,8 +40,8 @@ export const loader = async ({
 
     const url = new URL(request.url);
     const query = url.searchParams.get("query");
-    
-    
+
+
 
     const orders = await getOrders(user.name, query);
 
@@ -53,18 +55,18 @@ export default function Dashboard() {
 
 
     return (
-        <main className="w-screen h-[calc(100vh-3.5rem)] flex"> 
-            <div className="ml-2 p-1 flex flex-col w-64 h-full border-2 bg-card opacity-70 rounded-xl">
+        <main className="w-screen h-[calc(100vh-3.5rem)] flex">
+            <div className="ml-2 px-1 flex flex-col w-72 h-full border-2 bg-card opacity-70 rounded-xl">
                 <h1 className="text-center py-2 border-b-2 border-foreground">Orders</h1>
 
                 <div className="pb-1">
-                    <Form 
-                        className="min-h-10 pt-4 px-2"
+                    <Form
+                        className="min-h-10 pt-4 px-1"
                         onChange={((e) => {
                             submit(e.currentTarget)
                         })}
                     >
-                        <div>
+                        <div className="flex flex-row">
                             <Input
                                 id="query"
                                 aira-label="Search orders"
@@ -74,11 +76,12 @@ export default function Dashboard() {
                                 type="search"
                                 defaultValue={query || ""}
                             />
+                            <OrderFilter />
                         </div>
                     </Form>
                 </div>
 
-                <nav className="py-2 flex-grow overflow-auto scrollbar-thin">
+                <nav className="py-2 flex-grow overflow-auto scrollbar-none">
                     {orders.length ? (
                         <ul>
                             {orders.map((order, i) => (
@@ -86,7 +89,7 @@ export default function Dashboard() {
                                     <NavLink
                                         to={`/dashboard/${order.id}`}
                                         className={({ isActive }) =>
-                                            `w-full flex flex-row py-2 justify-between px-6 hover:shadow-lg hover:bg-muted-foreground ${isActive ? "bg-sky-700" : ""}`
+                                            `w-full flex flex-row py-2 justify-between px-4 hover:shadow-lg hover:bg-muted-foreground ${isActive ? "bg-sky-700" : ""}`
                                         }
                                     >
                                         <span>{order.orderNumber}</span>
@@ -102,8 +105,8 @@ export default function Dashboard() {
                 </nav>
 
                 <div className="p-4 border-t-2 border-muted-foreground">
-                    <Link 
-                        className="flex flex-row items-center justify-center gap-x-2 hover:shadow-inner" 
+                    <Link
+                        className="flex flex-row items-center justify-center gap-x-2 hover:opacity-100 hover:scale-125"
                         to="/logout"
                     >
                         <ExitIcon />
@@ -115,7 +118,7 @@ export default function Dashboard() {
             </div>
 
             <div className="p-8 border mx-4 w-full rounded-xl">
-                <Outlet context={ openCount } />
+                <Outlet context={openCount} />
             </div>
         </main>
     )
