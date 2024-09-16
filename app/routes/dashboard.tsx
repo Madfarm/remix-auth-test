@@ -40,11 +40,9 @@ export const loader = async ({
 
     const url = new URL(request.url);
     const query = url.searchParams.get("query");
-
-
-
-    const orders = await getOrders(user.name, query);
-
+    const filter = url.searchParams.get("filter");
+    
+    const orders = await getOrders(user.name, query, filter);
     return json({ orders, query, openCount })
 }
 
