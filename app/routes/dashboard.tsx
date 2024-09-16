@@ -53,7 +53,7 @@ export default function Dashboard() {
 
 
     return (
-        <main className="w-screen h-[calc(100vh-3.5rem)] flex">
+        <main className="w-screen h-[calc(100vh-4rem)] flex">
             <div className="ml-2 px-1 flex flex-col w-72 h-full border-2 bg-card opacity-70 rounded-xl">
                 <h1 className="text-center py-2 border-b-2 border-foreground">Orders</h1>
 
@@ -68,7 +68,7 @@ export default function Dashboard() {
                             <Input
                                 id="query"
                                 aira-label="Search orders"
-                                className="opacity-90 bg-[center_left_0.5rem] bg-no-repeat border border-foreground w-full pl-8 bg-[url('/root/code-sandbox/Remix/remix-auth-test/public/magnifying-glass.svg')]"
+                                className="opacity-90 bg-[center_left_0.5rem] bg-no-repeat border border-foreground w-full pl-8 bg-[url('/magnifying-glass.svg')]"
                                 placeholder="Search"
                                 name="query"
                                 type="search"
