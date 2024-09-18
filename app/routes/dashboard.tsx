@@ -6,7 +6,8 @@ import {
     useLoaderData,
     Link,
     Form,
-    useSubmit
+    useSubmit,
+    useNavigation
 } from "@remix-run/react";
 import { LoaderFunctionArgs } from "react-router";
 import authenticator from "~/services/auth.server";
@@ -50,6 +51,9 @@ export const loader = async ({
 export default function Dashboard() {
     const { orders, query, openCount } = useLoaderData<LoaderData>();
     const submit = useSubmit();
+    const navigation = useNavigation();
+    const isSearching = navigation.location &&
+        new URLSearchParams(navigation.location.search).has("query");
 
 
     return (
@@ -68,18 +72,26 @@ export default function Dashboard() {
                             <Input
                                 id="query"
                                 aira-label="Search orders"
-                                className="opacity-90 bg-[center_left_0.5rem] bg-no-repeat border border-foreground w-full pl-8 bg-[url('/magnifying-glass.svg')]"
+                                className={`opacity-90 bg-[center_left_0.5rem] bg-no-repeat border border-foreground w-full pl-8 
+                                    ${isSearching ? "" : "bg-[url('/magnifying-glass.svg')]"}`}
                                 placeholder="Search"
                                 name="query"
                                 type="search"
                                 defaultValue={query || ""}
                             />
-                            <OrderFilter />
+                            <div
+                                aria-hidden
+                                hidden={!isSearching} 
+                                className={`loader border-foreground border-2 m-2
+                                    ${isSearching ? "display: block" : ""}
+                                `}
+                            />
+                            <OrderFilter  />
                         </div>
                     </Form>
                 </div>
 
-                <nav className="py-2 flex-grow overflow-auto scrollbar-none">
+                <nav className="py-2 flex-grow overflow-auto scrollbar-thin">
                     {orders.length ? (
                         <ul>
                             {orders.map((order, i) => (

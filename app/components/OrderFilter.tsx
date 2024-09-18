@@ -13,7 +13,7 @@ export default function OrderFilter() {
             defaultValue=""
         >
             <SelectTrigger 
-                className="w-20" 
+                className="w-20 h-10" 
             >
                 <SelectValue placeholder="Status" />
             </SelectTrigger>
