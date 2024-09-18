@@ -1,4 +1,5 @@
 import { prisma } from "~/db.server";
+import { matchSorter } from "match-sorter";
 
 
 export interface OrderType {
@@ -60,4 +61,20 @@ export async function getUserByName(name: string) {
     }
 
     return user;
+}
+
+export async function getOrders(name: string, query?: string | null, filter?: string | null) {
+    let orders = (await getUserByName(name)).orders;
+
+    if(filter && filter != "Clear") {
+        orders = orders.filter(order => order.status === filter)
+    }
+
+    if (query) {
+        orders = matchSorter(orders, query, {
+            keys: ["customerName", "orderNumber"]
+        });
+    }
+
+    return orders;
 }
