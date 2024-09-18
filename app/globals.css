@@ -106,7 +106,7 @@
   /* border: 5px solid gray; */
   border-bottom-color: transparent;
   border-radius: 50%;
-  animation: rotation 1s linear infinite;
+  animation: rotation 0.5s linear infinite;
 }
 
 @keyframes rotation {
